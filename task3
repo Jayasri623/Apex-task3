@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Styling and JavaScript</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+
+  <!-- Section 1: Responsive Design -->
+  <div class="section">
+    <h2>📱 Responsive Design Example</h2>
+    <div class="responsive-box">
+      Resize your screen to change this box's color!
+    </div>
+  </div>
+
+  <!-- Section 2: Interactive Quiz -->
+  <div class="section">
+    <h2>🎯 Interactive Quiz</h2>
+    <p>What is the capital of France?</p>
+    <button onclick="checkAnswer('Paris')">Paris</button>
+    <button onclick="checkAnswer('Berlin')">Berlin</button>
+    <button onclick="checkAnswer('Madrid')">Madrid</button>
+    <p id="result"></p>
+  </div>
+
+  <!-- Section 3: Fetch Joke from API -->
+  <div class="section">
+    <h2>🤣 Joke Generator (Using API)</h2>
+    <button onclick="getJoke()">Get a Joke</button>
+    <p id="joke"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #e6f2ff;
+}
+
+.section {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #1a1a1a;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px 0;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#result, #joke {
+  font-size: 1.1em;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Responsive box that changes color */
+.responsive-box {
+  padding: 20px;
+  color: white;
+  background-color: #3399ff;
+  text-align: center;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .responsive-box {
+    background-color: #ff9933;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+function checkAnswer(answer) {
+  const result = document.getElementById("result");
+  if (answer === "Paris") {
+    result.textContent = "✅ Correct!";
+    result.style.color = "green";
+  } else {
+    result.textContent = "❌ Wrong! Try again.";
+    result.style.color = "red";
+  }
+}
+
+// Fetch Joke from API
+function getJoke() {
+  fetch("https://icanhazdadjoke.com/", {
+    headers: {
+      Accept: "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("joke").textContent = "😂 " + data.joke;
+    })
+    .catch(() => {
+      document.getElementById("joke").textContent = "Failed to load joke.";
+    });
+}
